@@ -15,7 +15,7 @@ app.directive('app', () => ({
     template: `
         <div>Value: {{app.toggleValue}}</div>
         <toggle value="app.toggleValue" 
-                on-toggle="app.onToggle" 
+                on-toggle="app.onToggle(value)" 
                 true-label="True" 
                 false-label="False">
         </toggle>        
