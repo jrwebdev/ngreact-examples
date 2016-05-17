@@ -12,13 +12,17 @@ var config = {
     module: {
         loaders: [{
             test: /\.js$/,
+            loader: 'react-hot',
+            exclude: /node_modules/
+        },{
+            test: /\.js$/,
             loader: 'babel',
             exclude: /node_modules/,
             query: {
-                presets: ['es2015', 'stage-0'],
+                presets: ['es2015', 'stage-0', 'react'],
                 plugins: ['transform-decorators-legacy']
             }
-                },{
+        },{
             test: /\.css$/,
             loader: 'style!css?sourceMap!postcss'
         },{

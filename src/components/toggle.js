@@ -1,31 +1,28 @@
-const module = angular.module('toggle', []);
+import React from 'react';
+import 'ngreact';
 
-module.directive('toggle', function () {
-    return {
-        controllerAs: 'toggle',
-        bindToController: {
-            value: '=',
-            trueLabel: '@',
-            falseLabel: '@',
-            onToggle: '&'
-        },
-        controller: function () {
-            this.toggle = () => {
-                this.value = !this.value;
-                this.onToggle({value: this.value});
-            };
-        },
-        template: `
-          <div ng-click="toggle.toggle()">
-              <span ng-class="{'selected': toggle.value}">
-                  {{toggle.trueLabel || 'Yes'}}
-              </span>
-              <span ng-class="{'selected': !toggle.value}">
-                  {{toggle.falseLabel || 'No'}}
-              </span>
-          </div>
-      `
-    }
-});
+const module = angular.module('toggle', ['react']);
+
+const Toggle = (props) => (
+    <div onClick={() => props.onToggle(!props.value)}>
+        <span className={props.value ? 'selected' : ''}>
+            {props.trueLabel || 'Yes'}
+        </span>
+        <span className={!props.value ? 'selected' : ''}>
+            {props.falseLabel || 'No'}
+        </span>
+    </div>
+);
+
+Toggle.propTypes = {
+    value: React.PropTypes.bool,
+    trueLabel: React.PropTypes.string,
+    falseLabel: React.PropTypes.string,
+    onToggle: React.PropTypes.func
+};
+
+module.directive('toggle', ['reactDirective', function (reactDirective) {
+    return reactDirective(Toggle);
+}]);
 
 export default module.name;
