@@ -21,8 +21,33 @@ Toggle.propTypes = {
     onToggle: React.PropTypes.func
 };
 
-module.directive('toggle', ['reactDirective', function (reactDirective) {
+module.directive('reactToggle', ['reactDirective', function (reactDirective) {
     return reactDirective(Toggle);
 }]);
+
+module.directive('toggle', function () {
+    return {
+        controllerAs: 'toggle',
+        bindToController: {
+            value: '=',
+            trueLabel: '@',
+            falseLabel: '@',
+            onToggle: '&'
+        },
+        controller: function () {
+            this.toggle = (newValue) => {
+                this.value = newValue;
+                this.onToggle({value: newValue});
+            };
+        },
+        template: `
+            <react-toggle value="toggle.value"
+                          true-label="toggle.trueLabel"
+                          false-label="toggle.falseLabel"
+                          on-toggle="toggle.toggle">
+            </react-toggle>
+        `
+    }
+});
 
 export default module.name;

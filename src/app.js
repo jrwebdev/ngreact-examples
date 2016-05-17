@@ -16,8 +16,8 @@ app.directive('app', () => ({
         <div>Value: {{app.toggleValue}}</div>
         <toggle value="app.toggleValue" 
                 on-toggle="app.onToggle" 
-                true-label="'True'" 
-                false-label="'False'">
+                true-label="True" 
+                false-label="False">
         </toggle>        
     `
 }));
